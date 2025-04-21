@@ -25,13 +25,13 @@ export default function LoginPage() {
 
       const { token } = await res.json();
 
-      // Сохраняем токен в localStorage
       localStorage.setItem("token", token);
 
-      // Перенаправляем на главную страницу
       router.push("/");
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+		if (err instanceof Error) {
+			setError(err.message);
+		}
     }
   };
 
