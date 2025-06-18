@@ -8,10 +8,10 @@ export const GET_HELLO = gql`
 
 export const ME = gql`
     query Me {
-    me {
-        id
-        username
-        email
+        me {
+            id
+            username
+            email
+        }
     }
-}
-`
+`;

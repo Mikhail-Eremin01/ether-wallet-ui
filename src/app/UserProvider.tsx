@@ -21,7 +21,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
         fetchPolicy: "network-only",
         skip: isAuthPage,
     });
-	
+
     useEffect(() => {
         if (error) {
             router.push("/login");
@@ -38,6 +38,6 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
             {children}
         </>
     );
-}
+};
 
 export default UserProvider;

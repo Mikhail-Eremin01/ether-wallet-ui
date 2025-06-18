@@ -22,11 +22,13 @@ const Profile = () => {
                 <strong>Server response:</strong>
                 <div className="mt-2">
                     {loading ? "Loading..." : hello}
-                    {error && <div className="text-red-500">{error.message}</div>}
+                    {error && (
+                        <div className="text-red-500">{error.message}</div>
+                    )}
                 </div>
             </div>
         </div>
     );
-}
+};
 
 export default Profile;

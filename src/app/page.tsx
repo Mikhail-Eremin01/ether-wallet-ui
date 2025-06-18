@@ -12,7 +12,7 @@ const Home = () => {
     const [hello, setHello] = useState<string | null>(null);
     const router = useRouter();
 
-    const { loading, error } = useHelloQuery({
+    const { data, error } = useHelloQuery({
         onCompleted(data) {
             console.log("Hello query completed:", data);
             setHello(data.hello);
@@ -33,14 +33,6 @@ const Home = () => {
         router.push("/profile");
     };
 
-    if(loading) {
-        return (
-            <div className="flex items-center justify-center min-h-screen">
-                <p>Loading...</p>
-            </div>
-        );
-    }
-
     return (
         <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
             <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
@@ -54,22 +46,29 @@ const Home = () => {
                         priority
                     />
                 </div>
-                
+
                 <div className="flex flex-col gap-4 items-center">
                     <button
-                        onClick={generateAddress}
+                        // onClick={generateAddress}
                         className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
                     >
                         Generate Ethereum Address
                     </button>
                     <div>
-                <strong>Server response:</strong>
-                <div className="mt-2">
-                        {hello}
-                        {error && <div className="text-red-500">{error.message}</div>}
+                        <strong>Server response:</strong>
+                        <div className="mt-2">
+                            {data?.hello ?? "Loading..."}
+                            {error && (
+                                <div className="text-red-500">
+                                    {error.message}
+                                </div>
+                            )}
+                        </div>
                     </div>
-                </div>
-                    <button onClick={goToProfile} className="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+                    <button
+                        onClick={goToProfile}
+                        className="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                    >
                         Go to profile
                     </button>
                     {address && (
@@ -96,6 +95,6 @@ const Home = () => {
             </main>
         </div>
     );
-}
+};
 
 export default Home;
