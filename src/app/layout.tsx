@@ -3,8 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ApolloWrapper } from "./ApolloWrapper";
 import UserProvider from "./UserProvider";
-import { GET_HELLO } from "@/graphql/queries";
-import { getClient } from "@/graphql/apollo-server";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -26,17 +24,11 @@ export default async function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const { data, error } = await getClient().query({
-        query: GET_HELLO,
-    });
-    const helloMessage = data?.hello || "No hello message";
-
     return (
         <html lang="en">
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
-                {helloMessage}
                 <ApolloWrapper>
                     <UserProvider>{children}</UserProvider>
                 </ApolloWrapper>

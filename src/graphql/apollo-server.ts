@@ -1,4 +1,3 @@
-// lib/apollo-server.ts
 import { HttpLink } from "@apollo/client";
 import {
     registerApolloClient,

@@ -5,6 +5,7 @@ import { ethers } from "ethers";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useHelloQuery } from "@/graphql/generated/graphql";
+import Loading from "@/components/Loading";
 
 const Home = () => {
     const [address, setAddress] = useState<string | null>(null);
@@ -12,7 +13,7 @@ const Home = () => {
     const [hello, setHello] = useState<string | null>(null);
     const router = useRouter();
 
-    const { data, error } = useHelloQuery({
+    const { data, loading, error } = useHelloQuery({
         onCompleted(data) {
             console.log("Hello query completed:", data);
             setHello(data.hello);
@@ -32,6 +33,9 @@ const Home = () => {
     const goToProfile = () => {
         router.push("/profile");
     };
+    if (loading) {
+        return <Loading />;
+    }
 
     return (
         <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
